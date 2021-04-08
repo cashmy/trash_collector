@@ -7,3 +7,13 @@ from django.db import models
 class Customer(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey('accounts.User', default=0, on_delete=models.CASCADE)
+
+    # Weekly pickup DOW
+    # one_time pickup date
+    # pickup charge amount
+    # current bill amount (?)
+    # suspension start date
+    # suspension end date
+
+    # Billing Address (FK)
+    # Pickup Address (FK)
