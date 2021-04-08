@@ -1,6 +1,17 @@
+{% if user.is_authenticated %}
+  {% for group in user.groups.all%}
+    {% if group.name == "Customers" %}
+    <p>Customer Navbar</p>
+    {% elif group.name == "Employees" %}
+    <p>Employee Navbar</p>
+    {% endif %}
+  {% endfor %}
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% endif %}
 <nav class="navbar navbar-dark bg-primary mb-4" style="margin-bottom: 0px !important">
     <div class="container">
-        <a class="navbar-brand" href="/">Trash Collector</a>
+        <a class="navbar-brand" href="/">Trash Collector {{ group.name }} </a>
         <a class="btn btn-navbar btn-navbar-span" href="/admin">Admin</a>
     </div>
 </nav>
+
