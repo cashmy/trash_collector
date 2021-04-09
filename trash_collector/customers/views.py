@@ -22,11 +22,12 @@ def register(request):
         address = ''
         pickup_day = request.method.POST.get('pickup')
 
-        new_employee = Employee(name=name, pickup=pickup_day)
-        new_employee.save()
+        new_customer = Customer(name=name, pickup=pickup_day)
+        new_customer.save()
         return HttpResponse(reverse('customer:index'))
     else:
         return render(request, 'customer/register.html')
+
 
 def table(request):
     all_customers = Customer.objects.all().orderby('name')
