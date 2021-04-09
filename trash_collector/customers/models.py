@@ -12,7 +12,7 @@ class Customer(models.Model):
     suspension_end_date = models.DateField()
     pickup_charge_amount = models.FloatField()
     current_bill_amount = models.FloatField()
-    default_currency_code = models.CharField(max_length=2)
+    default_currency_code = models.CharField(max_length=3)
     default_pickup_zipcode = models.CharField(max_length=10)
 
     def __str__(self):
