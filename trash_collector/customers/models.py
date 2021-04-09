@@ -17,6 +17,7 @@ class Customer(models.Model):
     # Billing Address (FK)
     # Default currency code - needed for Paypal API (reference country file)
     # Pickup Address (FK)
+    # Default pickup zip code (?)
 
     def __str__(self):
         return self.name
