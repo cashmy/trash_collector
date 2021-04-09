@@ -30,7 +30,7 @@ def register(request):
 
 
 def table(request):
-    all_customers = Customer.objects.all().orderby('name')
+    all_customers = Customer.objects.all()
     context = {
         'all_customers': all_customers
     }

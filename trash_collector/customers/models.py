@@ -6,17 +6,14 @@ from django.db import models
 class Customer(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey('accounts.User', default=0, on_delete=models.CASCADE)
-
-    # Weekly pickup DOW
-    # one_time pickup date
-    # suspension start date
-    # suspension end date
-    # pickup charge amount
-    # current bill amount (?)
-
-    # Billing Address (FK)
-    # Default currency code - needed for Paypal API (reference country file)
-    # Pickup Address (FK)
+    dow = models.CharField(max_length=9)
+    one_time_date = models.DateField()
+    suspension_start_date = models.DateField()
+    suspension_end_date = models.DateField()
+    pickup_charge_amount = models.FloatField()
+    current_bill_amount = models.FloatField()
+    default_currency_code = models.CharField(max_length=2)
+    default_pickup_zipcode = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name
