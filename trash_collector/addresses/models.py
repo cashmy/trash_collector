@@ -8,4 +8,8 @@ class Address(models.Model):
     # Address line 2
     # City name
     # State
+    # Country Code - needed to reference currency code for Paypal API
     # Zip Code
+    # latitude - needed for Google Maps API calls
+    # longitude - needed for Google Maps API calls
+

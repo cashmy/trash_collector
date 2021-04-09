@@ -10,10 +10,11 @@ class Customer(models.Model):
 
     # Weekly pickup DOW
     # one_time pickup date
-    # pickup charge amount
-    # current bill amount (?)
     # suspension start date
     # suspension end date
+    # pickup charge amount
+    # current bill amount (?)
 
     # Billing Address (FK)
+    # Default currency code - needed for Paypal API (reference country file)
     # Pickup Address (FK)
