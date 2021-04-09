@@ -1,5 +1,4 @@
 from django.db import models
-# Create your models here.
 
 # TODO: Finish customer model by adding necessary properties to fulfill user stories
 
@@ -18,3 +17,6 @@ class Customer(models.Model):
     # Billing Address (FK)
     # Default currency code - needed for Paypal API (reference country file)
     # Pickup Address (FK)
+
+    def __str__(self):
+        return self.name
