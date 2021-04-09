@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Customer
+from customers_addresses.models import CustomerAddress
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .forms import CustomerForm
@@ -40,8 +41,14 @@ def table(request):
 
 
 def detail(request, customer_id):
-    context = {}
-    context["customer"] = Customer.objects.get(id=customer_id)
+    customer = Customer.objects.get(id=customer_id)
+    billing_id = rtv_customer_address(customer_id, 'B')
+    pickup_id = rtv_customer_address(customer_id, 'P')
+    context = {
+        'customer': customer,
+        'billing_id': billing_id,
+        'pickup_id': pickup_id
+    }
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('customers:table'))
     else:
@@ -87,3 +94,8 @@ def update(request, customer_id):
     context['form'] = form
     return render(request, 'customers/update.html', context)
 
+
+def rtv_customer_address(customer_id, address_type='P'):
+    # Address type will be either 'B' for billing or 'P'' for pickup_day
+    address_queryset = CustomerAddress.objects.filter(customer_id=customer_id, address_type=address_type)
+    return address_queryset

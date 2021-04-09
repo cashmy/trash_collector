@@ -14,6 +14,7 @@
         {% if user.is_authenticated %}
             {% for group in user.groups.all%}
                 {% if group.name == "Employees" %}
+                    <a class="btn btn-navbar btn-navbar-span" href="/customers/table/">Customers</a>
                     <a class="btn btn-navbar btn-navbar-span" href="/admin">Admin</a>
                 {% endif %}
             {% endfor %}
