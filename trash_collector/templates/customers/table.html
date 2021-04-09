@@ -2,7 +2,7 @@
 {% load fontawesome_5 %}
 {% block content %}
 <div class="card">
-    <h4 class="card-header text-center">Customers List</h4>
+    <h4 class="card-header text-center">Customer List</h4>
     <div class="text-right">
         <a class="btn btn-primary btn-sm add-btn text-right" href="create/" role="button">{% fa5_icon 'plus' 'fas' %} Add </a>
     </div>
@@ -12,9 +12,11 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Customer</th>
-                    <th>User ID</th>
-                    <th>Actions</th>
+                      <th>Customer</th>
+                      <th>User ID</th>
+                      <th>Pickup DOW</th>
+                      <th>Pickup Zip</th>
+                      <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -22,13 +24,15 @@
                       <tr>
                         <td>{{ customer.name }}</td>
                         <td>{{ customer.user }}</td>
+                        <td>{{ customer.dow }}</td>
+                        <td>{{ customer.default_pickup_zipcode }}</td>
                         <td>
                             <a href="{% url 'customers:detail' customer.id %}">
-                                {% fa5_icon 'info' 'fas' size='fa-xs' %} Details</a>
-                            <a href="{% url 'customers:update' customer.id %}">
-                                {% fa5_icon 'edit' 'far' %} Edit</a>
-                            <a href="{% url 'customers:delete' customer.id %}">
-                                {% fa5_icon 'trash-alt' 'far' %} Delete</a>
+                                {% fa5_icon 'info' 'fas' size='fa-xs' %}</a>
+                            <a style="color: green; margin-left: 10px" href="{% url 'customers:update' customer.id %}">
+                                {% fa5_icon 'edit' 'far' %}</a>
+                            <a style="color: red; margin-left: 10px" href="{% url 'customers:delete' customer.id %}">
+                                {% fa5_icon 'trash-alt' 'far' %}</a>
                         </td>
                       </tr>
                    {% endfor %}

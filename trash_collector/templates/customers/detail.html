@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<form method="POST">
+    <!-- Security token by Django -->
+    {% csrf_token %}
+    <div class="card">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            Addresses go here
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-detail card-body">
+                            <h5 class="card-title text-center">{{ customer.name }}</h5>
+                            <p class="card-text">User ID:  {{ customer.user }}</p>
+                            <p class="card-text">Pickup WeekDay:  {{ customer.dow }}</p>
+                            <p class="card-text">Pickup Chg Amt:  {{ customer.pickup_charge_amount }}</p>
+                            <p class="card-text">Current Bill:  {{ customer.current_bill_amount }}</p>
+                            <p class="card-text">Currency:  {{ customer.default_currency_code }}</p>
+                            <p class="card-text">Pickup ZipCode:  {{ customer.default_pickup_zipcode }}</p>
+                        </div>
+                        <div class="card-footer text-right">
+                            <a class="btn btn-secondary btn-sm" href="/customers/table/">Exit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

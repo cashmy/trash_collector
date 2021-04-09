@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Customer
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from .forms import CustomerForm
 # Create your views here.
 
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
@@ -28,6 +30,7 @@ def register(request):
     else:
         return render(request, 'customer/register.html')
 
+
 def table(request):
     all_customers = Customer.objects.all()
     context = {
@@ -36,14 +39,51 @@ def table(request):
     return render(request, 'customers/table.html', context)
 
 
+def detail(request, customer_id):
+    context = {}
+    context["customer"] = Customer.objects.get(id=customer_id)
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse('customers:table'))
+    else:
+        return render(request, 'customers/detail.html', context)
+
+
 def create(request):
-    pass
+    context = {}
+    form = CustomerForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('customers:table'))
+
+    context['form'] = form
+    return render(request, 'customers/create.html', context)
 
 
 def delete(request, customer_id):
+    context = {}
+
+    # fetch the object related to passed id
+    customer_obj = get_object_or_404(Customer, id=customer_id)
+
+    if request.method == "POST":
+        # delete object
+        customer_obj.delete()
+        # after deleting redirect to
+        # table(list) page
+        return HttpResponseRedirect(reverse('customers:table'))
+    context['customer'] = customer_obj
+    return render(request, 'customers/delete.html', context)
     pass
 
 
 def update(request, customer_id):
-    pass
+    context = {}
+    customer_obj = get_object_or_404(Customer, id=customer_id)
+    form = CustomerForm(request.POST or None, instance=customer_obj)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('customers:table'))
+
+    context['form'] = form
+    return render(request, 'customers/update.html', context)
 

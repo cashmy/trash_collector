@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="card text-center">
+    <div class="card-body">
+        <h2>   Delete a Customer   </h2>
+
+            {% if error_message %}
+                <p class="alert alert-danger">
+                    <strong>{{ error_message }}</strong>
+                </p>
+            {% endif %}
+
+        <div class="main">
+        <!-- Create a Form -->
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                Name: {{ customer.name }} <br><br>
+                Are you want to delete this item ?
+                <input class="btn btn-primary btn-sm"  type="submit" value="Yes" />
+                <a class="btn btn-secondary btn-sm" href="/customers/table/">Cancel </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
