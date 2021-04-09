@@ -27,3 +27,23 @@ def register(request):
         return HttpResponse(reverse('customer:index'))
     else:
         return render(request, 'customer/register.html')
+
+def table(request):
+    all_customers = Customer.objects.all().orderby('name')
+    context = {
+        'all_customers': all_customers
+    }
+    return render(request, 'customers/table.html', context)
+
+
+def create(request):
+    pass
+
+
+def delete(request, customer_id):
+    pass
+
+
+def update(request, customer_id):
+    pass
+

@@ -1,8 +1,11 @@
 from django.db import models
 
+
 # Create your models here.
-
-
 class Employee(models.Model):
-    pass
-# TODO: Create an Employee model with properties required by the user stories
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey('accounts.User', default=0, on_delete=models.CASCADE)
+    assigned_zip_code = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
