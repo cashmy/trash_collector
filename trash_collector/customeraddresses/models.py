@@ -5,5 +5,5 @@ from django.db import models
 
 # Create your models here.
 class CustomerAddress(models.Model):
-    customer_id = models.ForeignKey('customers.id', on_delete=models.CASCADE)
+    customer_id = models.ForeignKey('customers.id', on_delete=models.SET_NULL)
     address_id = models.ForeignKey('address.id', on_delete=models.CASCADE)

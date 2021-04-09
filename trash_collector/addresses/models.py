@@ -12,4 +12,7 @@ class Address(models.Model):
     latitude = models.FloatField(default=0)  # - needed for Google Maps API calls
     longitude = models.FloatField(default=0)  # - needed for Google Maps API calls
 
-
+    def __str__(self):
+        # Possible build a dictionary (object)
+        # return the object) - access using key-value pairs
+        return self.address1, self.city_name, self.state_code, self.country_code, self.zip_code
