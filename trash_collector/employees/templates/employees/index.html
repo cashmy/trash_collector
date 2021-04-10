@@ -2,7 +2,7 @@
 
 {% block title %}
   {% block header %}
-    <div class="card">
+    <div class="card bg-info col-sm-6">
         <div class="card-body">
            Employee Home
         </div>
@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="card">
+<div class="card col-sm-6">
     <div class="card-body">
       {% if user.is_authenticated %}
         Hello Employee {{ user.username }}!
