@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-md-6">
                         <div class="card-body">
-                            {% include "../addresses/display.html/" with type="Pickup Address"%}
-                            {% include "../addresses/display.html/" with type="Billing Address"%}
+                            {% include "../addresses/display.html/" with type="Pickup Address" address=pickup_obj %}
+                            {% include "../addresses/display.html/" with type="Billing Address" address=billing_obj%}
                         </div>
                 </div>
                 <div class="col-md-6">

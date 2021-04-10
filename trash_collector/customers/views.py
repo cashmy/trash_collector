@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Customer
 from customers_addresses.models import CustomerAddress
+from addresses.models import Address
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .forms import CustomerForm
@@ -42,12 +43,12 @@ def table(request):
 
 def detail(request, customer_id):
     customer = Customer.objects.get(id=customer_id)
-    billing_id = rtv_customer_address(customer_id, 'B')
-    pickup_id = rtv_customer_address(customer_id, 'P')
+    billing_obj = rtv_customer_address(customer_id, 'B')
+    pickup_obj = rtv_customer_address(customer_id, 'P')
     context = {
         'customer': customer,
-        'billing_id': billing_id,
-        'pickup_id': pickup_id
+        'billing_obj': billing_obj,
+        'pickup_obj': pickup_obj
     }
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('customers:table'))
@@ -97,5 +98,15 @@ def update(request, customer_id):
 
 def rtv_customer_address(customer_id, address_type='P'):
     # Address type will be either 'B' for billing or 'P'' for pickup_day
-    address_queryset = CustomerAddress.objects.filter(customer_id=customer_id, address_type=address_type)
-    return address_queryset
+    address_ref = get_object_or_404(CustomerAddress, address_type=address_type, customer_id=customer_id)
+    address_obj = get_object_or_404(Address, id=address_ref.address_id_id)
+    # Deconstruct complex django object into a simple model-like object
+    add_obj = {
+        'address1': address_obj.address1,
+        'address2': address_obj.address2,
+        'city_name': address_obj.city_name,
+        'state_code': address_obj.state_code,
+        'country_code': address_obj.country_code,
+        'zip_code': address_obj.zip_code
+    }
+    return add_obj

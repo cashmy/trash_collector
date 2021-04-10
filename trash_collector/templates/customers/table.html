@@ -27,12 +27,12 @@
                         <td>{{ customer.dow }}</td>
                         <td>{{ customer.default_pickup_zipcode }}</td>
                         <td>
-                            <a href="{% url 'customers:detail' customer.id %}">
-                                {% fa5_icon 'info' 'fas' size='fa-xs' %}</a>
-                            <a style="color: green; margin-left: 10px" href="{% url 'customers:update' customer.id %}">
-                                {% fa5_icon 'edit' 'far' %}</a>
-                            <a style="color: red; margin-left: 10px" href="{% url 'customers:delete' customer.id %}">
-                                {% fa5_icon 'trash-alt' 'far' %}</a>
+                            <a class="btn btn-outline-primary" href="{% url 'customers:detail' customer.id %}">
+                                {% fa5_icon 'info' 'fas' size='fa-sm' %}</a>
+                            <a class="btn btn-outline-success" style="margin-left: 10px" href="{% url 'customers:update' customer.id %}">
+                                {% fa5_icon 'edit' 'far' size='fa-sm' %}</a>
+                            <a class="btn btn-outline-danger" style="margin-left: 10px" href="{% url 'customers:delete' customer.id %}">
+                                {% fa5_icon 'trash-alt' 'far' size='fa-sm' %}</a>
                         </td>
                       </tr>
                    {% endfor %}
