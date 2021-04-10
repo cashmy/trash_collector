@@ -100,13 +100,4 @@ def rtv_customer_address(customer_id, address_type='P'):
     # Address type will be either 'B' for billing or 'P'' for pickup_day
     address_ref = get_object_or_404(CustomerAddress, address_type=address_type, customer_id=customer_id)
     address_obj = get_object_or_404(Address, id=address_ref.address_id_id)
-    # Deconstruct complex django object into a simple model-like object
-    add_obj = {
-        'address1': address_obj.address1,
-        'address2': address_obj.address2,
-        'city_name': address_obj.city_name,
-        'state_code': address_obj.state_code,
-        'country_code': address_obj.country_code,
-        'zip_code': address_obj.zip_code
-    }
-    return add_obj
+    return address_obj
