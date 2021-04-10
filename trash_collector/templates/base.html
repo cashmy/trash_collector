@@ -6,33 +6,54 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Basic Bootstrap -->
         <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+        <!-- MDB -->
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+          rel="stylesheet"
+        />
+        <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
               crossorigin="anonymous" />
+        <!-- Google Fonts -->
+        <link
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet"
+        />
     <link rel="stylesheet"
           type="text/css"
           href="{% static 'trash_collector/style.css' %}">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
 </head>
 <body>
-    <!-- NavBar -->
-    {% include 'partials/_navbar.html' %}
-  <main>
-    <h1>{% block header %} {% endblock %}</h1>
+<div class="bg-image" style="
+    background-image: url('{% static 'trash_collector/images/truck.jpg' %}'); height: 100vh;">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 m-auto">
-                    {% block content %}{% endblock %}
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.75)">
+        <!-- NavBar -->
+        {% include 'partials/_navbar.html' %}
+        <div class="d-flex justify-content-center  w-100">
+            <div class="container" style="margin-top: 25px;">
+                <div class="row">
+                    <div class="col-md-12 m-auto">
+                        <h1>{% block header %} {% endblock %}</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 m-auto">
+                        {% block content %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
+      </div>
+    </div>
 
-  </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
