@@ -19,6 +19,9 @@
                 {% endif %}
             {% endfor %}
             <a class="btn btn-navbar btn-primary btn-navbar-span" href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+            <a class="navbar-nav ms-auto btn btn-navbar btn-primary" href="{% url 'login' %}" style="margin-right: 15px;" >Log In</a>
+            <a class="btn btn-navbar btn-primary" href="{% url 'accounts:register' %}">Sign Up</a>
         {% endif %}
     </div>
 </nav>
