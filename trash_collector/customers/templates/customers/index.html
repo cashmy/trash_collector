@@ -5,6 +5,7 @@
 {% block content %}
   {% if user.is_authenticated %}
     Hello Customer {{ user.username }}!
+<!--Check user.group?? to see if they are referenced as a foriegn key. If not create new user page TODO FIND PAGE WITH USER LOGIN-->
   {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

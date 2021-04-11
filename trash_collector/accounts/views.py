@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
