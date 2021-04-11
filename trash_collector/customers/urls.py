@@ -8,10 +8,11 @@ app_name = "customers"
 urlpatterns = [
     # Customer use views:
     path('', views.index, name="index"),
-    # path('FirstTimeCustomer', views.register, name='register'),
+    #  path('FirstTimeCustomer', views.register, name='register'),
     # Employee use views:
-    path('delete/<int:customers_id>', views.delete, name='delete'),
-    path('update/<int:customers_id>', views.update, name='update'),
+    path('delete/<int:customer_id>', views.delete, name='delete'),
+    path('update/<int:customer_id>', views.update, name='update'),
+    path('detail/<int:customer_id>', views.detail, name='detail'),
     path('create/', views.create, name='create_new_customer'),
     path('table/', views.table, name='table')
 ]

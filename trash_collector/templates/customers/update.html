@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="card text-center">
+    <div class="card-body">
+        <h2>  Update Customer Details  </h2>
+
+        {% if error_message %}
+            <p class="alert alert-danger">
+                <strong>{{ error_message }}</strong>
+            </p>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+
+            <!-- form as paragraph -->
+            {{ form.as_p }}
+            <input class="btn btn-primary btn-sm" type="submit" name="save" value="Save">
+            <a class="btn btn-secondary btn-sm" href="/customers/table/">Cancel </a>
+        </form>
+    </div>
+</div>
+{% endblock %}
