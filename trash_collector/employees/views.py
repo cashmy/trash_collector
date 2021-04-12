@@ -11,7 +11,7 @@ from django.urls import reverse
 
 def index(request):
     # Get the Customer model from the other app, it can now be used to query the db
-    Customer = apps.get_model('customers.Customer')
+    Customer = apps.get_model('customers_addresses.Customer')
     return render(request, 'employees/index.html')
 
 

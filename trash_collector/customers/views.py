@@ -8,7 +8,7 @@ from addresses.models import Address
 from .forms import CustomerForm, FirstTimeCustomerForm
 # Create your views here.
 
-# TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
+# TODO: Create a function for each path created in customers_addresses/urls.py. Each will need a template as well.
 
 
 def index(request):
@@ -23,14 +23,7 @@ def index(request):
             return redirect('create/', request)
     # Will also be useful in any function that needs
     print(user)
-    return render(request, 'customers/index.html')
-
-
-class RegisterView(generic.CreateView):
-    """Allows user to register with the custom form we created"""
-    form_class = CustomerForm
-    success_url = reverse_lazy('index')
-    template_name = 'customers/register.html'
+    return render(request, 'customers_addresses/index.html')
 
 
 def table(request):
@@ -38,7 +31,7 @@ def table(request):
     context = {
         'all_customers': all_customers
     }
-    return render(request, 'customers/table.html', context)
+    return render(request, 'customers_addresses/table.html', context)
 
 
 def detail(request, customer_id):
@@ -51,9 +44,9 @@ def detail(request, customer_id):
         'pickup_obj': pickup_obj
     }
     if request.method == 'POST':
-        return HttpResponseRedirect(reverse('customers:table'))
+        return HttpResponseRedirect(reverse('customers_addresses:table'))
     else:
-        return render(request, 'customers/detail.html', context)
+        return render(request, 'customers_addresses/detail.html', context)
 
 
 def create(request):
@@ -64,11 +57,11 @@ def create(request):
 
     if form.is_valid():
         form.save()
-        return redirect('index.html')
-        # return HttpResponseRedirect(reverse('customers:table'))
+        return redirect('/addresses/create/')  # TODO redirect to customer creation
+        # return HttpResponseRedirect(reverse('customers_addresses:table'))
 
     context['form'] = form
-    return render(request, 'customers/create.html', context)
+    return render(request, 'customers_addresses/create.html', context)
 
 
 def delete(request, customer_id):
@@ -82,9 +75,9 @@ def delete(request, customer_id):
         customer_obj.delete()
         # after deleting redirect to
         # table(list) page
-        return HttpResponseRedirect(reverse('customers:table'))
+        return HttpResponseRedirect(reverse('customers_addresses:table'))
     context['customer'] = customer_obj
-    return render(request, 'customers/delete.html', context)
+    return render(request, 'customers_addresses/delete.html', context)
     pass
 
 
@@ -94,10 +87,10 @@ def update(request, customer_id):
     form = CustomerForm(request.POST or None, instance=customer_obj)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('customers:table'))
+        return HttpResponseRedirect(reverse('customers_addresses:table'))
 
     context['form'] = form
-    return render(request, 'customers/update.html', context)
+    return render(request, 'customers_addresses/update.html', context)
 
 
 def rtv_customer_address(customer_id, address_type='P'):
