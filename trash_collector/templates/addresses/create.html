@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Address</h5>
+
+      </div>
+      <div class="modal-body">
+        <p class="card-text">Address Type : {{ type }} (P/B)</p>
+        <input class="card-text">Address 1 :  {{ address.address1 }}</input>
+        <p class="card-text">Address 2 :  {{ address.address2 }}</p>
+        <p class="card-text">City/St/Zip :  {{ address.city_name }},  {{address.state_code}}  {{ address.zip_code}}</p>
+        <p class="card-text">Country :  {{ address.country_code }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>

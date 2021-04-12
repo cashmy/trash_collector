@@ -3,7 +3,7 @@ from .models import Customer
 
 
 class DateInput(forms.DateInput):
-    input_type  = 'date'
+    input_type = 'date'
 
 
 # create a ModelForm
