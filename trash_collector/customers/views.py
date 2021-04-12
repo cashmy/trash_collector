@@ -104,6 +104,9 @@ def update(request, customer_id):
 
 def rtv_customer_address(customer_id, address_type='P'):
     # Address type will be either 'B' for billing or 'P'' for pickup_day
-    address_ref = get_object_or_404(CustomerAddress, address_type=address_type, customer_id=customer_id)
-    address_obj = get_object_or_404(Address, id=address_ref.address_id_id)
+    try:
+        address_ref = get_object_or_404(CustomerAddress, address_type=address_type, customer_id=customer_id)
+        address_obj = get_object_or_404(Address, id=address_ref.address_id_id)
+    except:
+        address_obj = ''
     return address_obj
