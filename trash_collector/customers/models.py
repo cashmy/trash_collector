@@ -6,7 +6,7 @@ from django.db import models
 class Customer(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey('accounts.User', default=0, on_delete=models.CASCADE)
-    dow = models.CharField(max_length=20)
+    dow = models.CharField(max_length=9)
     one_time_date = models.DateField(null=True, blank=True)
     suspension_start_date = models.DateField(null=True, blank=True)
     suspension_end_date = models.DateField(null=True, blank=True)

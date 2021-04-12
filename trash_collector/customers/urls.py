@@ -8,7 +8,6 @@ app_name = "customers"
 urlpatterns = [
     # Customer use views:
     path('', views.index, name="index"),
-    #  path('FirstTimeCustomer', views.register, name='register'),
     # Employee use views:
     path('delete/<int:customer_id>', views.delete, name='delete'),
     path('update/<int:customer_id>', views.update, name='update'),

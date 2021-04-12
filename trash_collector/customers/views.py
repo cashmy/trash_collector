@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from customers_addresses.models import CustomerAddress
 from addresses.models import Address
-from .forms import CustomerForm
+from .forms import CustomerForm, FirstTimeCustomerForm
 # Create your views here.
 
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
@@ -15,11 +15,10 @@ def index(request):
     # get the logged in user within any view function
     user = request.user
     # This will be useful while creating a customer to assign the logged in user as the user foreign key
-    # TODO COME HERE FOR THE FIRST TIME LOGIN AND REDIRECT FIND USER ON FOREIGN KEY INDEX
     if not user.is_employee:
-        all_customers = Customer.objects.all()
-
-        if Customer.objects.filter(user_id=user.pk).exists:
+        all_customers = Customer.objects.filter(user=user.pk)
+        print(all_customers)
+        if not Customer.objects.filter(user=user.pk).exists():
             # TODO correct so it only appears when user isnt assigned to anyone
             return redirect('create/', request)
     # Will also be useful in any function that needs
@@ -32,17 +31,6 @@ class RegisterView(generic.CreateView):
     form_class = CustomerForm
     success_url = reverse_lazy('index')
     template_name = 'customers/register.html'
-# def register(request):
-#     if request.method == 'POST':
-#         name = request.method.POST.get('name')
-#         address = ''
-#         pickup_day = request.method.POST.get('pickup')
-#
-#         new_customer = Customer(name=name, pickup=pickup_day)
-#         new_customer.save()
-#         return HttpResponse(reverse('customer:index'))
-#     else:
-#         return render(request, 'customer/register.html')
 
 
 def table(request):
@@ -70,12 +58,16 @@ def detail(request, customer_id):
 
 def create(request):
     context = {}
-    form = CustomerForm(request.POST or None, request.FILES or None)
+    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None)
     user = request.user
 
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('customers:table'))
+        customer = Customer.objects.latest('pk')
+        customer.user = user
+        customer.save()
+        return redirect('index.html')
+        # return HttpResponseRedirect(reverse('customers:table'))
 
     context['form'] = form
     return render(request, 'customers/create.html', context)

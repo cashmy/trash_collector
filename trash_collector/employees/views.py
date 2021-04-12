@@ -15,12 +15,12 @@ def index(request):
     return render(request, 'employees/index.html')
 
 
-def register(request):
-    if request.method == 'POST':
-        name = request.method.POST.get('name')
-        zipcode = 0
-        new_employee = Employee(name=name, zip=zipcode)
-        new_employee.save()
-        return HttpResponseRedirect('employee/register.html')
-    else:
-        return render(request, 'employee/register.html')
+# def register(request):
+#     if request.method == 'POST':
+#         name = request.method.POST.get('name')
+#         zipcode = 0
+#         new_employee = Employee(name=name, zip=zipcode)
+#         new_employee.save()
+#         return HttpResponseRedirect('employee/register.html')
+#     else:
+#         return render(request, 'employee/register.html')
