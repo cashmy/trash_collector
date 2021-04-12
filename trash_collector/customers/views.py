@@ -58,14 +58,12 @@ def detail(request, customer_id):
 
 def create(request):
     context = {}
-    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None)
     user = request.user
+    new_customer = Customer(name='John Doe', dow='Monday', user=user)
+    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None, instance=new_customer)
 
     if form.is_valid():
         form.save()
-        customer = Customer.objects.latest('pk')
-        customer.user = user
-        customer.save()
         return redirect('index.html')
         # return HttpResponseRedirect(reverse('customers:table'))
 
