@@ -23,9 +23,10 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     # Then adding django's built in routes (login and logout). Notice there is no login function in accounts/views.py
     path('accounts/', include('django.contrib.auth.urls')),
-    path('customers_addresses/', include('customers_addresses.urls')),
-    path('employees/', include('employees.urls')),
+    path('customers/', include('customers.urls')),
+    # path('customers_addresses/', include('customers_addresses.urls')),
     path('addresses/', include('addresses.urls')),
+    path('employees/', include('employees.urls')),
     # 'home' redirects a user to the appropriate index based on their auth group. Investigate views.py for more info
     path('', views.group_redirect, name='home')
 ]

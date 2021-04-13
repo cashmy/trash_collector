@@ -8,7 +8,7 @@ from django.apps import apps
 
 def create(request, address_id):
     context = {}
-    Customer = apps.get_model('customers_addresses.Customer')
+    Customer = apps.get_model('customers.Customer')
     Address = apps.get_model('Addresses.address')
     customer = Customer.objects.get(user=request.user)
     address = Address.objects.get(pk=address_id)
@@ -20,4 +20,4 @@ def create(request, address_id):
         new_custaddress.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
-        return render(request, 'customer_addresses/create.html')
+        return render(request, 'customer_address/create.html')

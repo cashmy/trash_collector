@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    {% block header %} First time setup {% endblock %}
-{% endblock %}
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Address</h5>
 
-{% block content %}
-  <h2>Pickup Address information</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
-{% endblock %}
+      </div>
+      <div class="modal-body">
+        <input class="card-text">Address Type : {{ type }} (P/B)</input>
+        <input class="card-text">Address 1 :  {{ address.address1 }}</input>
+        <input class="card-text">Address 2 :  {{ address.address2 }}</input>
+        <input class="card-text">City/St/Zip :  {{ address.city_name }},  {{address.state_code}}  {{ address.zip_code}}</input>
+        <input class="card-text">Country :  {{ address.country_code }}</input>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
