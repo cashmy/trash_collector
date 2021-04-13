@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}{% block header %}Register Account{% endblock %}{% endblock %}
+{% block title %}
+    Register Account
+  {% endblock %}
+  {% block header %}
+    <div class="card col-sm-9 bg-info" >
+        <div class="card-body">
+           Sign up
+        </div>
+    </div>
 
+{% endblock %}
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+<div class="card col-sm-9">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" >Sign Up</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
