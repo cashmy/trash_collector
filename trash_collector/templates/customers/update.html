@@ -47,17 +47,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   {% for address in all_addresses %}
+                                   {% for address in address_list %}
                                         <tr>
-                                            <td> {{ address.type}} </td>
-                                            <td> {{ address.full_address }} </td>
+                                            <td> {{ address.address_type_text}} </td>
+                                            <td> {{ address.address_obj }} </td>
                                             <td>
-                                                <a class="btn btn-info btn-sm" href="">
-                                                    {% fa5_icon 'info' 'fas' size='fa-xs' %} Details</a>
                                                 <a class="btn btn-primary btn-sm" href="">
-                                                    {% fa5_icon 'edit' 'far' %} Edit</a>
+                                                    {% fa5_icon 'edit' 'far' %}</a>
                                                 <a class="btn btn-danger btn-sm" href="">
-                                                    {% fa5_icon 'trash-alt' 'far' %} Delete</a>
+                                                    {% fa5_icon 'trash-alt' 'far' %}</a>
                                             </td>
                                         </tr>
                                    {% endfor %}

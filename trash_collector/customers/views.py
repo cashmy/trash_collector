@@ -91,9 +91,13 @@ def delete(request, customer_id):
 
 
 def update(request, customer_id):
-    context = {}
     customer_obj = get_object_or_404(Customer, id=customer_id)
     form = CustomerForm(request.POST or None, instance=customer_obj)
+    address_list = rtv_all_customer_addresses(customer_id)
+    context = {
+        'form': form,
+        'address_list': address_list
+    }
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('customers:table'))
@@ -110,3 +114,24 @@ def rtv_customer_address(customer_id, address_type='P'):
     except:
         address_obj = ''
     return address_obj
+
+
+def rtv_all_customer_addresses(customer_id):
+    address_obj_list = []
+    # Address type will be either 'B' for billing or 'P'' for pickup_day
+    try:
+        address_ref = CustomerAddress.objects.all().filter(customer_id=customer_id)
+        for address in address_ref:
+            if address.address_type == 'B':
+                address_type_text = 'Billing'
+            else:
+                address_type_text = 'Pickup'
+            address_obj = get_object_or_404(Address, id=address.address_id_id)
+            address_obj_item = {
+                'address_type_text' : address_type_text,
+                'address_obj': address_obj,
+            }
+            address_obj_list.append(address_obj_item)
+    except:
+        pass
+    return address_obj_list
