@@ -1,8 +1,8 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.apps import apps
-from .models import Address
+from django.shortcuts import render, redirect
 from .forms import AddressForm
+from .models import Address
+from django.apps import apps
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
 

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% block header %} First time setup {% endblock %}
+{% endblock %}
+
+{% block content %}
+  <h2>Is this shipping or billing?</h2>
+  <form method="post">
+    <input type="radio" name="type" value="B">
+    <label for="type">Billing</label><br>
+    <input type="radio" name="type" value="P">
+    <label for="type">Pickup</label><br>
+    <button type="submit">Sign Up</button>
+  </form>
+{% endblock %}

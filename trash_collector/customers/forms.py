@@ -35,7 +35,7 @@ class FirstTimeCustomerForm(forms.ModelForm):
         model = Customer
         fields = [
             "name",
-            "user",
+            # "user",
             "dow",
             # "one_time_date",
             # "suspension_start_date",
