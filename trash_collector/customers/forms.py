@@ -1,6 +1,9 @@
 from django import forms
-
 from .models import Customer
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 # create a ModelForm
@@ -19,6 +22,11 @@ class CustomerForm(forms.ModelForm):
             "default_currency_code",
             "default_pickup_zipcode",
         ]
+        widgets = {
+            'one_time_date': DateInput(),
+            'suspension_start_date': DateInput(),
+            'suspension_end_date': DateInput()
+        }
 
 
 class FirstTimeCustomerForm(forms.ModelForm):

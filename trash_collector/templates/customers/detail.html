@@ -25,10 +25,38 @@
                         </div>
                         <div class="card-footer text-right">
                             <a class="btn btn-secondary btn-sm" href="/customers/table/">Exit</a>
+                            <button type="button"
+                                    class="btn btn-primary btn-sm"
+                                    data-toggle="modal"
+                                    data-target="#basicExampleModal"> Pickup Changes
+                            </button>
                         </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Additional Pickup Information</h5>
+
+      </div>
+      <div class="modal-body">
+          <p class="card-text">One time pickup request:  {{ customer.one_time_date }}</p>
+          <strong>Suspension:</strong>
+          <p class="card-text">Start Date:  {{ customer.suspension_start_date }}</p>
+          <p class="card-text">End Date:  {{ customer.suspension_end_date }}</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
