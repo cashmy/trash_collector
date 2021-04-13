@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from customers_addresses.models import CustomerAddress
 from addresses.models import Address
-from .forms import CustomerForm, FirstTimeCustomerForm
+from .forms import CustomerForm, FirstTimeCustomerForm, CustomerSchedulingForm
 # Create your views here.
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
@@ -24,8 +24,20 @@ def index(request):
             context = {
                 'customer': customer
             }
+    form = CustomerSchedulingForm(request.POST or None, instance=customer)
+    billing_obj = rtv_customer_address(customer.pk, 'B')
+    pickup_obj = rtv_customer_address(customer.pk, 'P')
+    context = {
+        'customer': customer,
+        'form': form,
+        'billing_obj': billing_obj,
+        'pickup_obj': pickup_obj
+    }
+    if form.is_valid():
+        form.save()
+        customer.save()
+
     # Will also be useful in any function that needs
-    print(customer)
     return render(request, 'customers/index.html', context)
 
 

@@ -44,3 +44,21 @@ class FirstTimeCustomerForm(forms.ModelForm):
             # "default_currency_code",
             "default_pickup_zipcode",
         ]
+
+
+# create a ModelForm
+class CustomerSchedulingForm(forms.ModelForm):
+    # specify the name of model to use
+    class Meta:
+        model = Customer
+        fields = [
+            "dow",
+            "one_time_date",
+            "suspension_start_date",
+            "suspension_end_date",
+        ]
+        widgets = {
+            'one_time_date': DateInput(),
+            'suspension_start_date': DateInput(),
+            'suspension_end_date': DateInput()
+        }
