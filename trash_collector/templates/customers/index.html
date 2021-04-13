@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load fontawesome_5 %}
+
+{% block title %}
+    Home Portal
+  {% endblock %}
+  {% block header %}
+    <div class="card col-sm-12 bg-info" >
+        <div class="card-body">
+           Customer Home Portal
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card col-sm-12">
+    <div class="row">
+        <div class="card col-sm-4 customer-card">
+            <div class="card-body">
+                <h5 class="card-title"> Welcome {{ customer }}!</h5>
+                <p class="card-text">UserID:  {{ user }} </p>
+                <br>
+                <p class="card-text">Current Bill: {{ customer.current_bill_amount }} </p>
+                <p class="card-text">Currency: {{ customer.default_currency_code }} </p>
+                <button type="button"
+                        class="btn btn-secondary btn-sm disabled"
+                        data-toggle="modal"
+                        data-target="#basicExampleModal"> Pay bill
+                </button>
+            </div>
+        </div>
+        <div class="card col-sm-4 customer-card">
+            <div class="card-body">
+                <P class="card-title text-center"><strong>Billing Address</strong></P>
+                <p class="card-text">Address 1  :  {{ billing_obj.address1 }}</p>
+                <p class="card-text">Address 2  :  {{ billing_obj.address2 }}</p>
+                <p class="card-text">City/St/Zip:  {{ billing_obj.city_name }},  {{billing_obj.state_code}}  {{ billing_obj.zip_code}}</p>
+                <p class="card-text">Country    :  {{ billing_obj.country_code }}</p>
+
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="modal"
+                        data-target="#basicExampleModal"> Edit
+                </button>
+            </div>
+        </div>
+        <div class="card col-sm-4 customer-card">
+            <div class="card-body">
+                <p></p>                <p class="card-title text-center"> <strong> Scheduling </strong> </p>
+                <p class="card-text">Scheduled pickup weekday: {{ customer.dow }} </p>
+                <p class="card-text">Extra Pickup Date: {{ customer.one_time_date }} </p>
+                <p class="card-text">Temp suspension start: {{ customer.suspension_start_date }} </p>
+                <p class="card-text">Temp suspension end: {{ customer.suspension_end_date }} </p>
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="modal"
+                        data-target="#editSchedulingDetails"> Edit
+                </button>
+            </div>
+        </div>
+        <div class="card col-sm-4 customer-card">
+            <div class="card-body">
+                <P class="card-title text-center"><strong>Pickup Address</strong></P>
+                <p class="card-text">Address 1  :  {{ pickup_obj.address1 }}</p>
+                <p class="card-text">Address 2  :  {{ pickup_obj.address2 }}</p>
+                <p class="card-text">City/St/Zip:  {{ pickup_obj.city_name }},  {{address.state_code}}  {{ address.zip_code}}</p>
+                <p class="card-text">Country    :  {{ pickup_obj.country_code }}</p>
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="modal"
+                        data-target="#basicExampleModal"> Edit
+                </button>
+            </div>
+        </div>
+        <div class="card col-sm-4 customer-card">
+            <div class="card-body">
+                <p class="card-title text-center"> <strong> Map </strong> </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editSchedulingDetails" tabindex="-1" role="dialog" aria-labelledby="schedulingModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Scheduling Information</h5>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!-- Security token by Django -->
+                    {% csrf_token %}
+                    <!-- form as paragraph -->
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary btn-sm" type="submit" name="save" value="Save">
+                    <a class="btn btn-secondary btn-sm" href="" data-dismiss="modal">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
