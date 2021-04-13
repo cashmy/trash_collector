@@ -7,7 +7,6 @@ from customers_addresses.models import CustomerAddress
 from addresses.models import Address
 from .forms import CustomerForm, FirstTimeCustomerForm
 # Create your views here.
-
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
 
@@ -16,14 +15,18 @@ def index(request):
     user = request.user
     # This will be useful while creating a customer to assign the logged in user as the user foreign key
     if not user.is_employee:
-        all_customers = Customer.objects.filter(user=user.pk)
-        print(all_customers)
+        customer = Customer.objects.get(user=user.pk)
+        # print(all_customers)
         if not Customer.objects.filter(user=user.pk).exists():
-            # TODO correct so it only appears when user isnt assigned to anyone
+            # TODO correct so it only appears when user isn't assigned to anyone
             return redirect('create/', request)
+        else:
+            context = {
+                'customer': customer
+            }
     # Will also be useful in any function that needs
-    print(user)
-    return render(request, 'customers/index.html')
+    print(customer)
+    return render(request, 'customers/index.html', context)
 
 
 class RegisterView(generic.CreateView):
