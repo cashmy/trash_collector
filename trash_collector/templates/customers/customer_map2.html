@@ -1,5 +1,3 @@
-{% extends 'base.html' %}
-
 {% block head_add %}
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="./index.js"></script>
@@ -19,27 +17,11 @@
     </script>
 {% endblock %}
 
-{% block title %}
-     View Map
-  {% endblock %}
-  {% block header %}
-    <div class="card col-sm-5 bg-info" >
-        <div class="card-body">
-           Customer Map
-        </div>
-    </div>
-{% endblock %}
-
 {% block content %}
 <div class="card col-sm-5 text-center">
     <div class="card-body">
-
-        <h3>My Google Maps Demo</h3>
-        <!--The div element for the map -->
-
+              <!--The div element for the map -->
         <div id="map" class="margin-left: 15px;" ></div>
-        <br>
-        <a class="btn btn-secondary btn-sm" href="/customers/index/">Cancel </a>
     </div>
 </div>
 
