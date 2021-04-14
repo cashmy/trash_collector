@@ -6,6 +6,8 @@ from django.views import generic
 from customers_addresses.models import CustomerAddress
 from addresses.models import Address
 from .forms import CustomerForm, FirstTimeCustomerForm, CustomerSchedulingForm
+import googlemaps
+from datetime import datetime
 # Create your views here.
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
@@ -129,10 +131,23 @@ def rtv_all_customer_addresses(customer_id):
                 address_type_text = 'Pickup'
             address_obj = get_object_or_404(Address, id=address.address_id_id)
             address_obj_item = {
-                'address_type_text' : address_type_text,
+                'address_type_text': address_type_text,
                 'address_obj': address_obj,
             }
             address_obj_list.append(address_obj_item)
     except:
         pass
     return address_obj_list
+
+
+def customer_map(request):
+    latitude = 0
+    longitude = 0
+    context = {
+        'latitude': latitude,
+        'longitude': longitude
+    }
+    if request.method == "POST":
+        return redirect('index.html')
+
+    return render(request, 'customers/customer_map.html', context)

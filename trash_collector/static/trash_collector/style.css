@@ -1,9 +1,6 @@
-/* body {
-    background: white url('images/truck.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+#map {
+    height: 250px;
+    /* The height is 400 pixels */
+    width: 250px;
+    /* The width is the width of the web page */
 }
-
-.wh-text {
-    color: white !important;
-} */

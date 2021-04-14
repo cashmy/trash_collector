@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head_add %}
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        const customer_location = { lat: -25.344, lng: 131.036 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 6,
+          center: customer_location,
+        });
+        const marker = new google.maps.Marker({
+          position: customer_location,
+          map: map,
+        });
+      }
+    </script>
+{% endblock %}
+
+{% block title %}
+     View Map
+  {% endblock %}
+  {% block header %}
+    <div class="card col-sm-5 bg-info" >
+        <div class="card-body">
+           Customer Map
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card col-sm-5 text-center">
+    <div class="card-body">
+
+        <h3>My Google Maps Demo</h3>
+        <!--The div element for the map -->
+
+        <div id="map" class="margin-left: 15px;" ></div>
+        <br>
+        <a class="btn btn-secondary btn-sm" href="/customers/index/">Cancel </a>
+    </div>
+</div>
+
+{% endblock %}

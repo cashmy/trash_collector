@@ -98,6 +98,12 @@
         <div class="card col-sm-4 customer-card">
             <div class="card-body">
                 <p class="card-title text-center"> <strong> Map </strong> </p>
+                {% if pickup_obj.id %}
+                    {% include "customers/customer_map2.html/" %}
+                {% else %}
+                    <p></p>
+                    <p class="text-center" >No address available</p>
+                {% endif %}
             </div>
         </div>
     </div>
