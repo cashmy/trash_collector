@@ -28,14 +28,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="row">
-                            <div class="col-sm-9 text-center">You will need to have at least one billing address and one pickup address</div>
-                            <div class="col-sm-3 text-right">
-                                        <a class="btn btn-secondary btn-floating add-btn"
-                                           data-toggle="modal"
-                                            data-target="#basicExampleModal"
-                                               href="../../../addresses/create/" role="button"
-                                               style="margin-right: 15px;">
-                                            {% fa5_icon 'plus' 'fas' size='fa-xs' %}</a> </div>
+                            <div class="col-sm-9 text-center">Main Billing and Pickup Addresses</div>
                         </div>
                          <div class="card-body">
                             <table class="table table-striped">
@@ -52,10 +45,11 @@
                                             <td> {{ address.address_type_text}} </td>
                                             <td> {{ address.address_obj }} </td>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="">
-                                                    {% fa5_icon 'edit' 'far' %}</a>
-                                                <a class="btn btn-danger btn-sm" href="">
-                                                    {% fa5_icon 'trash-alt' 'far' %}</a>
+                                                <a class="btn btn-primary btn-sm"
+                                                   data-toggle="modal"
+                                                   data-target="#displayAddressModal"
+                                                   href="">
+                                                    {% fa5_icon 'info' 'fas'%}</a>
                                             </td>
                                         </tr>
                                    {% endfor %}
@@ -70,9 +64,9 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="displayAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-    {% include "../addresses/create.html/" %}
+    {% include "../addresses/display_modal.html/" %}
 </div>
 
 

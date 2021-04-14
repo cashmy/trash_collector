@@ -3,12 +3,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Customer
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-# from customer_addresses.models import CustomerAddress
+from customers_addresses.models import CustomerAddress
 from addresses.models import Address
-from .forms import CustomerForm, FirstTimeCustomerForm
+from .forms import CustomerForm, FirstTimeCustomerForm, CustomerSchedulingForm
 # Create your views here.
-
-# TODO: Create a function for each path created in customers_addresses/urls.py. Each will need a template as well.
+# TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
 
 def index(request):
@@ -16,14 +15,37 @@ def index(request):
     user = request.user
     # This will be useful while creating a customer to assign the logged in user as the user foreign key
     if not user.is_employee:
-        all_customers = Customer.objects.filter(user=user.pk)
-        print(all_customers)
+        customer = Customer.objects.get(user=user.pk)
+        # print(all_customers)
         if not Customer.objects.filter(user=user.pk).exists():
-            # TODO correct so it only appears when user isnt assigned to anyone
+            # TODO correct so it only appears when user isn't assigned to anyone
             return redirect('create/', request)
+        else:
+            context = {
+                'customer': customer
+            }
+    form = CustomerSchedulingForm(request.POST or None, instance=customer)
+    billing_obj = rtv_customer_address(customer.pk, 'B')
+    pickup_obj = rtv_customer_address(customer.pk, 'P')
+    context = {
+        'customer': customer,
+        'form': form,
+        'billing_obj': billing_obj,
+        'pickup_obj': pickup_obj
+    }
+    if form.is_valid():
+        form.save()
+        customer.save()
+
     # Will also be useful in any function that needs
-    print(user)
-    return render(request, 'customers/index.html')
+    return render(request, 'customers/index.html', context)
+
+
+class RegisterView(generic.CreateView):
+    """Allows user to register with the custom form we created"""
+    form_class = CustomerForm
+    success_url = reverse_lazy('index')
+    template_name = 'customers/register.html'
 
 
 def table(request):
@@ -51,14 +73,15 @@ def detail(request, customer_id):
 
 def create(request):
     context = {}
+    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None)
     user = request.user
-    new_customer = Customer(name='John Doe', dow='Monday', user=user)
-    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None, instance=new_customer)
 
     if form.is_valid():
         form.save()
-        # return redirect('/addresses/create/')  # TODO redirect to customer creation
-        return HttpResponseRedirect(reverse('customers:table'))
+        customer = Customer.objects.latest('pk')
+        customer.user = user
+        customer.save()
+        return redirect('index.html')
 
     context['form'] = form
     return render(request, 'customers/create.html', context)
