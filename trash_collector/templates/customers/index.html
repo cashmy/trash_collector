@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load fontawesome_5 %}
 
 {% block title %}
     Home Portal
@@ -14,6 +13,11 @@
 
 {% block content %}
 <div class="card col-sm-12">
+    {% if error_message %}
+        <p class="alert alert-danger">
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
     <div class="row">
         <div class="card col-sm-4 customer-card">
             <div class="card-body">
@@ -36,12 +40,17 @@
                 <p class="card-text">Address 2  :  {{ billing_obj.address2 }}</p>
                 <p class="card-text">City/St/Zip:  {{ billing_obj.city_name }},  {{billing_obj.state_code}}  {{ billing_obj.zip_code}}</p>
                 <p class="card-text">Country    :  {{ billing_obj.country_code }}</p>
-
-                <button type="button"
-                        class="btn btn-primary btn-sm"
-                        data-toggle="modal"
-                        data-target="#basicExampleModal"> Edit
-                </button>
+                {% if billing_obj.id %}
+                    <a type="button"
+                            class="btn btn-primary btn-sm"
+                            href="{% url 'addresses:update' billing_obj.id%}"> Edit
+                    </a>
+                {% else %}
+                    <a type="button"
+                            class="btn btn-primary btn-sm"
+                            href="{% url 'addresses:create' }"> Add
+                    </a>
+                {% endif %}
             </div>
         </div>
         <div class="card col-sm-4 customer-card">
@@ -65,11 +74,17 @@
                 <p class="card-text">Address 2  :  {{ pickup_obj.address2 }}</p>
                 <p class="card-text">City/St/Zip:  {{ pickup_obj.city_name }},  {{address.state_code}}  {{ address.zip_code}}</p>
                 <p class="card-text">Country    :  {{ pickup_obj.country_code }}</p>
-                <button type="button"
-                        class="btn btn-primary btn-sm"
-                        data-toggle="modal"
-                        data-target="#basicExampleModal"> Edit
-                </button>
+                {% if pickup_obj.id %}
+                    <a type="button"
+                            class="btn btn-primary btn-sm"
+                            href="{% url 'addresses:update' pickup_obj.id%}"> Edit
+                    </a>
+                {% else %}
+                    <a type="button"
+                            class="btn btn-primary btn-sm"
+                            href="{% url 'addresses:create' }"> Add
+                    </a>
+                {% endif %}
             </div>
         </div>
         <div class="card col-sm-4 customer-card">

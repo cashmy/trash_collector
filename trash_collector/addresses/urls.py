@@ -3,8 +3,7 @@ from . import views
 
 app_name = "addresses"
 urlpatterns = [
-
-    path('create/', views.create, name='create_new_address'),
-
+    path('create/', views.create, name='create'),
+    path('update/<int:address_id>', views.update, name='update'),
 ]
 

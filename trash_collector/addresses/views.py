@@ -20,3 +20,17 @@ def create(request):
 
     context['form'] = form
     return render(request, 'addresses/create.html', context)
+
+
+def update(request, address_id):
+    context = {}
+    address = Address.objects.get(pk=address_id)
+    form = AddressForm(request.POST or None, instance=address)
+
+    if form.is_valid():
+        form.save()
+        # return redirect('index.html')
+        return HttpResponseRedirect(reverse('customers:index'))
+
+    context['form'] = form
+    return render(request, 'addresses/update.html', context)

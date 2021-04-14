@@ -1,18 +1,37 @@
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Address</h5>
+{% extends 'base.html' %}
 
-      </div>
-      <div class="modal-body">
-        <p class="card-text">Address Type : {{ type }} (P/B)</p>
-        <input class="card-text">Address 1 :  {{ address.address1 }}</input>
-        <p class="card-text">Address 2 :  {{ address.address2 }}</p>
-        <p class="card-text">City/St/Zip :  {{ address.city_name }},  {{address.state_code}}  {{ address.zip_code}}</p>
-        <p class="card-text">Country :  {{ address.country_code }}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
+{% block title %}
+    Address Addition
+  {% endblock %}
+  {% block header %}
+    <div class="card col-sm-12 bg-info" >
+        <div class="card-body">
+           Add an Address
+        </div>
     </div>
-  </div>
+{% endblock %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-body">
+        <h5> {{ type }} Address  </h5>
+
+        {% if error_message %}
+            <p class="alert alert-danger">
+                <strong>{{ error_message }}</strong>
+            </p>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+
+            <!-- form as paragraph -->
+            {{ form.as_p }}
+            <input class="btn btn-primary btn-sm" type="submit" name="save" value="Save">
+            <a class="btn btn-secondary btn-sm" href="/customers/index/">Cancel </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

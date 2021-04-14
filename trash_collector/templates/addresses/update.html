@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Address Update
+  {% endblock %}
+  {% block header %}
+    <div class="card col-sm-12 bg-info" >
+        <div class="card-body">
+           Update Address
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
 <div class="card text-center">
     <div class="card-body">
-        <h2>  Update {{ type }} Address  </h2>
+        <h5> {{ type }} Address  </h5>
 
         {% if error_message %}
             <p class="alert alert-danger">
@@ -18,7 +29,7 @@
             <!-- form as paragraph -->
             {{ form.as_p }}
             <input class="btn btn-primary btn-sm" type="submit" name="save" value="Save">
-            <a class="btn btn-secondary btn-sm" href="/customers/update/">Cancel </a>
+            <a class="btn btn-secondary btn-sm" href="/customers/index/">Cancel </a>
         </form>
     </div>
 </div>
