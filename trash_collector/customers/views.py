@@ -13,12 +13,9 @@ from datetime import datetime
 
 
 def index(request):
-    # get the logged in user within any view function
     user = request.user
-    # This will be useful while creating a customer to assign the logged in user as the user foreign key
+    customer = Customer.objects.get(user=user.pk)
     if not user.is_employee:
-        customer = Customer.objects.get(user=user.pk)
-        # print(all_customers)
         if not Customer.objects.filter(user=user.pk).exists():
             # TODO correct so it only appears when user isn't assigned to anyone
             return redirect('create/', request)
@@ -90,7 +87,6 @@ def create(request):
 
 def delete(request, customer_id):
     context = {}
-
     # fetch the object related to passed id
     customer_obj = get_object_or_404(Customer, id=customer_id)
 

@@ -35,7 +35,6 @@ def update(request, address_id):
 
     if form.is_valid():
         form.save()
-        # return redirect('index.html')
         return HttpResponseRedirect(reverse('customers:index'))
 
     context['form'] = form

@@ -25,7 +25,17 @@
 {% block content %}
 
 <div class="card">
-    <h4 class="card-header text-center">Assigned Customers</h4>
+    <h4 class="card-header text-center">
+        <p>Assigned Customers</p>
+        <div class="text-right">Current Zip: {{ employee.assigned_zip_code }}
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="modal"
+                        data-target="#editAssignedZip"> Edit
+                </button>
+        </div>
+
+    </h4>
     <div class="text-right">
             <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Day of Week Preview
@@ -73,4 +83,27 @@
     </div>
     </div>
 
+
+<div class="modal fade" id="editAssignedZip" tabindex="-1" role="dialog" aria-labelledby="zipModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Assigned Zip</h5>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!-- Security token by Django -->
+                    {% csrf_token %}
+                    <!-- form as paragraph -->
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary btn-sm" type="submit" name="save" value="Save">
+                    <a class="btn btn-secondary btn-sm" href="" data-dismiss="modal">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
