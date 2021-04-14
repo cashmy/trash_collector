@@ -32,7 +32,6 @@ def index(request):
     }
     if form.is_valid():
         form.save()
-        customer.save()
 
     # Will also be useful in any function that needs
     return render(request, 'customers/index.html', context)
