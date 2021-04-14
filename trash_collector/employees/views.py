@@ -4,7 +4,7 @@ from django.apps import apps
 from .models import Employee
 from django.urls import reverse
 import datetime
-from .forms import FirstTimeEmployeeForm
+from .forms import FirstTimeEmployeeForm, UpdateZipForm
 
 
 # Create your views here.
@@ -28,7 +28,6 @@ def index(request):  # pass in dictionary exclude dictionary[key] from allcustom
     Customer = apps.get_model('customers.Customer')
     user = request.user
     # Get the Customer model from the other app, it can now be used to query the db
-
     if user.is_employee:
         if not Employee.objects.filter(user=user.pk).exists():
             # TODO correct so it only appears when user isnt assigned to anyone
@@ -37,6 +36,7 @@ def index(request):  # pass in dictionary exclude dictionary[key] from allcustom
     today = datetime.date.today()
     weekday = num_to_day(today.weekday())
     employee = Employee.objects.get(user=user.pk)
+
     all_customers = Customer.objects.filter(default_pickup_zipcode=employee.assigned_zip_code,
                                             suspension_start_date__gt=today,
                                             dow=weekday
@@ -52,7 +52,13 @@ def index(request):  # pass in dictionary exclude dictionary[key] from allcustom
         dow=weekday
         )
 
-    context = {'all_customers': all_customers}
+    form = UpdateZipForm(request.POST or None, instance=employee)
+    if form.is_valid():
+        form.save()
+        return redirect('employees:index')
+    context = {'all_customers': all_customers,
+               'employee': employee,
+               'form': form}
     return render(request, './employees/index.html', context)
 
 

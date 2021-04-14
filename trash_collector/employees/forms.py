@@ -10,3 +10,12 @@ class FirstTimeEmployeeForm(forms.ModelForm):
             "name",
             "assigned_zip_code",
         ]
+
+
+class UpdateZipForm(forms.ModelForm):
+    # specify the name of model to use
+    class Meta:
+        model = Employee
+        fields = [
+            "assigned_zip_code",
+        ]
