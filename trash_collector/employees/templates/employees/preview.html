@@ -1,31 +1,23 @@
 {% extends 'base.html' %}
 {% load fontawesome_5 %}
 {% block title %}
-    Employee Home
+    Preview
 {% endblock %}
 
   {% block header %}
-<div class="card bg-info col-sm-6 container">
-    <div class="card-body">
-      {% if user.is_authenticated %}
-        Hello Employee {{ user.username }}!
-
-      {% else %}
-        <p>You are at the employee index, but you are not logged in.</p>
-        <a href="{% url 'login' %}">Log In</a>
-        <a href="{% url 'accounts:register' %}">Sign Up</a>
-      {% endif %}
+    <div class="card bg-info col-sm-6 container">
+        <div class="card-body text-center">
+           Weekday
+        </div>
     </div>
-</div>
 {% endblock %}
 
 
 
 
 {% block content %}
-
 <div class="card">
-    <h4 class="card-header text-center">Assigned Customers</h4>
+    <h4 class="card-header text-center">Preview</h4>
     <div class="text-right">
             <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Day of Week Preview
@@ -52,7 +44,6 @@
                       <th>User ID</th>
                       <th>Pickup DOW</th>
                       <th>Pickup Zip</th>
-                      <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,15 +53,11 @@
                         <td>{{ customer.user }}</td>
                         <td>{{ customer.dow }}</td>
                         <td>{{ customer.default_pickup_zipcode }}</td>
-                        <td>
-                            <a class="btn btn-outline-primary" href="{% url 'employees:confirmation' customer.id %}">
-                                Confirm</a>
-                        </td>
                       </tr>
                    {% endfor %}
                 </tbody>
             </table>
     </div>
-    </div>
+</div>
 
 {% endblock %}

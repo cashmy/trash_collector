@@ -58,7 +58,7 @@ def create(request):
     if form.is_valid():
         form.save()
         # return redirect('/addresses/create/')  # TODO redirect to customer creation
-        return HttpResponseRedirect(reverse('customers_addresses:table'))
+        return HttpResponseRedirect(reverse('customers:table'))
 
     context['form'] = form
     return render(request, 'customers/create.html', context)
@@ -78,7 +78,6 @@ def delete(request, customer_id):
         return HttpResponseRedirect(reverse('customers:table'))
     context['customer'] = customer_obj
     return render(request, 'customers/delete.html', context)
-    pass
 
 
 def update(request, customer_id):
