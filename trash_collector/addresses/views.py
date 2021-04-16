@@ -23,7 +23,7 @@ def create(request, customer_id, address_type):
         address.save()
         # Now add to the join table
         customer_obj = Customer.objects.get(pk=customer_id)
-
+        # Add default p/u zip code
         if address_type == "P":
             customer_obj.default_pickup_zipcode = form.instance.zip_code
             customer_obj.save()
