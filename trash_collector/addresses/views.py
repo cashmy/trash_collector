@@ -23,6 +23,11 @@ def create(request, customer_id, address_type):
         address.save()
         # Now add to the join table
         customer_obj = Customer.objects.get(pk=customer_id)
+
+        if address_type == "P":
+            customer_obj.default_pickup_zipcode = form.instance.zip_code
+            customer_obj.save()
+
         customer_address = CustomerAddress(address_type=address_type,
                                            address_id=form.instance,
                                            customer_id=customer_obj)
@@ -37,10 +42,16 @@ def create(request, customer_id, address_type):
 def update(request, address_id):
     context = {}
     address = Address.objects.get(pk=address_id)
+    customer_address = CustomerAddress.objects.get(address_id=address)
+    customer = Customer.objects.get(pk=customer_address.customer_id.pk)
+
     form = AddressForm(request.POST or None, instance=address)
 
     if form.is_valid():
         form.save()
+        if customer_address.address_type == "P":
+            customer.default_pickup_zipcode = address.zip_code
+            customer.save()
         # Update lat & long
         lat_long = get_lat_long(request, address)
         address.latitude = lat_long['results'][0]['geometry']['location']['lat']

@@ -39,13 +39,6 @@ def index(request):
     return render(request, 'customers/index.html', context)
 
 
-class RegisterView(generic.CreateView):
-    """Allows user to register with the custom form we created"""
-    form_class = CustomerForm
-    success_url = reverse_lazy('index')
-    template_name = 'customers/register.html'
-
-
 def table(request):
     all_customers = Customer.objects.all()
     context = {

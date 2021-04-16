@@ -26,11 +26,19 @@
                 <br>
                 <p class="card-text">Current Bill: {{ customer.current_bill_amount }} </p>
                 <p class="card-text">Currency: {{ customer.default_currency_code }} </p>
-                <button type="button"
-                        class="btn btn-secondary btn-sm disabled"
-                        data-toggle="modal"
-                        data-target="#basicExampleModal"> Pay bill
-                </button>
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+  <!-- Identify your business so that you can collect the payments. -->
+  <input type="hidden" name="business" value="example@email.com">
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="item_name" value="Pickup Bill">
+  <input type="hidden" name="amount" value="{{ customer.current_bill_amount }}">
+  <input type="hidden" name="currency_code" value="{{ customer.default_currency_code }}">
+
+      <input type="submit" class="btn btn-secondary btn-sm" value="Pay bill"  name="submit" border="0">
+
+</form>
             </div>
         </div>
         <div class="card col-sm-4 customer-card">
@@ -72,7 +80,7 @@
                 <P class="card-title text-center"><strong>Pickup Address</strong></P>
                 <p class="card-text">Address 1  :  {{ pickup_obj.address1 }}</p>
                 <p class="card-text">Address 2  :  {{ pickup_obj.address2 }}</p>
-                <p class="card-text">City/St/Zip:  {{ pickup_obj.city_name }},  {{address.state_code}}  {{ address.zip_code}}</p>
+                <p class="card-text">City/St/Zip:  {{ pickup_obj.city_name }},  {{pickup_obj.state_code}}  {{ pickup_obj.zip_code}}</p>
                 <p class="card-text">Country    :  {{ pickup_obj.country_code }}</p>
                 {% if pickup_obj.id %}
                     <a type="button"
