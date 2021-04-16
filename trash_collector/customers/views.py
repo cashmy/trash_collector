@@ -14,12 +14,13 @@ from datetime import datetime
 
 def index(request):
     user = request.user
-    customer = Customer.objects.get(user=user.pk)
+
     if not user.is_employee:
         if not Customer.objects.filter(user=user.pk).exists():
             # TODO correct so it only appears when user isn't assigned to anyone
             return redirect('create/', request)
         else:
+            customer = Customer.objects.get(user=user.pk)
             context = {
                 'customer': customer
             }
@@ -64,15 +65,13 @@ def detail(request, customer_id):
 
 def create(request):
     context = {}
-    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None)
     user = request.user
-
+    customer = Customer()
+    customer.user = user
+    form = FirstTimeCustomerForm(request.POST or None, request.FILES or None, instance=customer)
     if form.is_valid():
         form.save()
-        customer = Customer.objects.latest('pk')
-        customer.user = user
-        customer.save()
-        return redirect('index.html')
+        return redirect('/customers/')
 
     context['form'] = form
     return render(request, 'customers/create.html', context)

@@ -16,6 +16,7 @@ def create(request, customer_id, address_type):
     form = AddressForm(request.POST or None, request.FILES or None, instance=address)
     if form.is_valid():
         form.save()
+        address = Address.objects.latest('pk')
         # rtv lat & long
         geo_address = address.address1 + '+' + address.city_name + '+' + address.state_code + '+' + address.zip_code
         lat_long = get_lat_long(request, geo_address)
