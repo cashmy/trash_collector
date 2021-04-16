@@ -12,12 +12,13 @@ import requests
 # Create your views here.
 def create(request, customer_id, address_type):
     context = {}
-    form = AddressForm(request.POST or None, request.FILES or None)
-
+    address = Address()
+    form = AddressForm(request.POST or None, request.FILES or None, instance=address)
     if form.is_valid():
         form.save()
         # rtv lat & long
-        lat_long = get_lat_long(request, address)
+        geo_address = address.address1 + '+' + address.city_name + '+' + address.state_code + '+' + address.zip_code
+        lat_long = get_lat_long(request, geo_address)
         address.latitude = lat_long['results'][0]['geometry']['location']['lat']
         address.longitude = lat_long['results'][0]['geometry']['location']['lng']
         address.save()
@@ -53,7 +54,8 @@ def update(request, address_id):
             customer.default_pickup_zipcode = address.zip_code
             customer.save()
         # Update lat & long
-        lat_long = get_lat_long(request, address)
+        geo_address = address.address1 + '+' + address.city_name + '+' + address.state_code + '+' + address.zip_code
+        lat_long = get_lat_long(request, geo_address)
         address.latitude = lat_long['results'][0]['geometry']['location']['lat']
         address.longitude = lat_long['results'][0]['geometry']['location']['lng']
         address.save()
@@ -63,9 +65,8 @@ def update(request, address_id):
     return render(request, 'addresses/update.html', context)
 
 
-def get_lat_long(request, address):
+def get_lat_long(request, geo_address):
     # address_obj = rtv_customer_address(customer_id)
-    geo_address = address.address1 + '+' + address.city_name + '+' + address.state_code + '+' + address.zip_code
     geo_string = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + geo_address + '&key=AIzaSyDMAD9fxsFUUm9AZi85Hlf9YtLDLt-nPrk'
     response = requests.get(geo_string)
     address_info = response.json()
