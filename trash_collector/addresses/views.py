@@ -16,6 +16,7 @@ def create(request, customer_id, address_type):
 
     if form.is_valid():
         form.save()
+        address = Address.objects.latest('pk')
         # rtv lat & long
         lat_long = get_lat_long(request, address)
         address.latitude = lat_long['results'][0]['geometry']['location']['lat']
