@@ -158,3 +158,5 @@ def customer_map(request):
         return redirect('index.html')
 
     return render(request, 'customers/customer_map.html', context)
+
+

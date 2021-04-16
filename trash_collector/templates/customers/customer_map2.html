@@ -4,9 +4,9 @@
     <script>
       // Initialize and add the map
       function initMap() {
-        const customer_location = { lat: -25.344, lng: 131.036 };
+        const customer_location = { lat: {{ pickup_obj.latitude }}, lng: {{ pickup_obj.longitude }} };
         const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 6,
+          zoom: 10,
           center: customer_location,
         });
         const marker = new google.maps.Marker({
